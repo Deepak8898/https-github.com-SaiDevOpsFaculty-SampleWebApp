@@ -1,0 +1,47 @@
+<?xml version="1.0" ?> 
+<project name="SampleBuildWithAnt" default="war">
+    <path id="compile.classpath">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="init">
+		<mkdir dir="build/classes"/>
+		<mkdir dir="dist" />
+        <mkdir dir="test-reports"/>
+	</target>
+	
+	<target name="compile" depends="init" >
+		<javac destdir="build/classes" debug="true" srcdir="src">
+            <classpath refid="compile.classpath"/>
+		</javac>
+	</target>
+	
+	<target name="war" depends="compile">
+		<war destfile="dist/SampleWebApp.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent"/>
+			<lib dir="WebContent/WEB-INF/lib"/>
+			<classes dir="build/classes"/>
+		</war>
+	</target>
+	
+	<target name="clean">
+		<delete dir="dist" />
+		<delete dir="build" />
+	</target>
+    
+    <target name="junit" depends="init">
+        <junit haltonfailure="false" printsummary="true">
+            <classpath>
+                <pathelement location="build/classes"/>
+                <pathelement location="WebContent/WEB-INF/lib/junit.jar"/>
+                <pathelement location="WebContent/WEB-INF/lib/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+            </classpath>
+            <test name="junit.TestCalculator" haltonfailure="no" todir="test-reports">
+                <formatter type="plain" />
+            </test>
+        </junit>
+    </target>
+	
+</project>
