@@ -1,0 +1,23 @@
+<project name="SampleBuild" default="war" basedir=".">
+    <path id="compile.classpath">
+        <fileset dir="WebContent/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <target name="init">
+        <mkdir dir="build/classes"/>
+        <mkdir dir="dist"/>
+    </target>
+    <target name="compile" depends="init">
+        <javac srcdir="src" debug="true" destdir="build/classes">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+    <target name="war" depends="compile">
+        <war webxml="WebContent/WEB-INF/web.xml" destfile="dist/SampleWebApp.war">
+            <fileset dir="WebContent"/>
+            <lib dir="WebContent/WEB-INF/lib"/>
+            <classes dir="build/classes"/>
+        </war>
+    </target>
+</project>
