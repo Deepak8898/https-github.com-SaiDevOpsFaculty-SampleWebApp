@@ -32,6 +32,7 @@
               <test name="junit.TestCalculator" haltonfailure="no" outfile="TestCalculator_JUnitResult.txt">
                 <formatter type="plain"/>
               </test>
+            
         </junit>
     </target>
  </project>
