@@ -1,5 +1,7 @@
 <?xml version="1.0" ?> 
 <project name="SampleBuildWithAnt" default="war">
+    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
+         classpath="WebContent/WEB-INF/lib/checkstyle-7.8.2-all.jar"/>
     <path id="compile.classpath">
 		<fileset dir="WebContent/WEB-INF/lib">
 			<include name="*.jar"/>
@@ -44,4 +46,17 @@
         </junit>
     </target>
 	
+    <target name="checkstyle"
+        description="Generates a report of code convention violations.">
+
+          <checkstyle config="sun_checks.xml"
+                      failureProperty="checkstyle.failure"
+                      failOnViolation="false">
+            <formatter type="xml" tofile="checkstyle_report.xml"/>
+            <fileset dir="src/example" includes="**/*.java"/>
+          </checkstyle>
+
+      <!--style in="checkstyle_report.xml" out="checkstyle_report.html" style="checkstyle.xsl"/-->
+    </target>
+    
 </project>
