@@ -43,7 +43,7 @@ public class TestCalculator {
 	 @Test
 	 public void testDivide() {
 		  double result = calc.divide(100, 10);
-		  org.junit.Assert.assertEquals(2, result, 0.001);
+		  org.junit.Assert.assertEquals(10, result, 0.001);
 	 }
 	  
 	 @Test(expected = ArithmeticException.class)
