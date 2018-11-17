@@ -1,18 +1,24 @@
 <project name="SampleBuild" default="compile" basedir=".">
     <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
-         classpath="/path/to/checkstyle-8.13-all.jar"/>
+         classpath="WebContent/WEB-INF/lib/checkstyle-7.8.2-all.jar"/>
 	<path id="compile.classpath">
         <fileset dir="WebContent/WEB-INF/lib">
             <include name="*.jar"/>
         </fileset>
     </path>
-	<target name="init">
+    <target name="init">
         <mkdir dir="build/classes"/>
         <mkdir dir="dist"/>
     </target>
-    <target name="compile" depends="init">
+	<target name="compile" depends="init">
         <javac srcdir="src" debug="true" destdir="build/classes">
             <classpath refid="compile.classpath"/>
         </javac>
     </target>
+    <target name="checkstyle">
+        <checkstyle config="sun_checks.xml">
+            <fileset dir="src/example" includes="**/*.java"/>
+            <formatter type="xml" toFile="checkstyle_errors.xml"/>
+        </checkstyle>
+   </target>
 </project>
